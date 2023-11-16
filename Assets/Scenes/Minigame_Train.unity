@@ -462,6 +462,7 @@ MonoBehaviour:
   trainSection: {fileID: 1852893312}
   normalTrain: {fileID: 8455151262053575910, guid: 1b2d39dcf5e70dd46934af4803b25b16, type: 3}
   crashedTrain: {fileID: 6467772228768905118, guid: 5c81fcb6aaa469045bb5cd00aae289e4, type: 3}
+  pointer: {fileID: 24992820}
   trainInitialPosition: {fileID: 1659827444}
 --- !u!1 &863285376
 GameObject:
@@ -1377,7 +1378,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1854694615}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 743170217}
+        m_TargetAssemblyTypeName: TrainManager, Assembly-CSharp
+        m_MethodName: GoLeftBokey
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2035408712
 GameObject:
   m_ObjectHideFlags: 0
@@ -1589,7 +1602,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2142766907}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 743170217}
+        m_TargetAssemblyTypeName: TrainManager, Assembly-CSharp
+        m_MethodName: GoRightBokey
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
