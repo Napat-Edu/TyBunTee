@@ -1,18 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TrainManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] Button leftButton;
+    [SerializeField] Button rightButton;
 
-    // Update is called once per frame
-    void Update()
+    [SerializeField] Button saveLeftTrainButton;
+    [SerializeField] Button saveRightTrainButton;
+
+    [SerializeField] GameObject trainSection;
+
+    int currentTrainIndex;
+
+    void Awake()
     {
-        
+        currentTrainIndex = 0;
+        GameObject gameObject = new();
+        gameObject.transform.parent = trainSection.transform;
     }
 }
