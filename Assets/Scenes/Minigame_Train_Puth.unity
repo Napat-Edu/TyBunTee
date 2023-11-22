@@ -158,7 +158,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -750, y: 25}
-  m_SizeDelta: {x: -1870, y: -950}
+  m_SizeDelta: {x: -1840, y: -950}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &24992822
 MonoBehaviour:
@@ -459,8 +459,8 @@ MonoBehaviour:
   rightButton: {fileID: 2142766909}
   cutBokeyButton: {fileID: 1784687467}
   trainSection: {fileID: 1852893312}
-  normalTrain: {fileID: 8455151262053575910, guid: 1b2d39dcf5e70dd46934af4803b25b16, type: 3}
-  crashedTrain: {fileID: 6467772228768905118, guid: 5c81fcb6aaa469045bb5cd00aae289e4, type: 3}
+  normalTrain: {fileID: 1039138049571919692, guid: 1b2d39dcf5e70dd46934af4803b25b16, type: 3}
+  crashedTrain: {fileID: 1039138049571919692, guid: f7aeb087df02dfe4c936eb7100dd1a6f, type: 3}
   pointer: {fileID: 24992820}
   trainInitialPosition: {fileID: 1659827444}
 --- !u!1 &863285376
@@ -529,8 +529,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -553,7 +553,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -840,10 +840,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1852893313}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -750, y: -205}
-  m_SizeDelta: {x: -50, y: -50}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -680, y: -180}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1784687465
 GameObject:
@@ -1038,7 +1038,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -820, y: -434}
-  m_SizeDelta: {x: 0, y: -50}
+  m_SizeDelta: {x: -31.879997, y: -50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1854694615
 MonoBehaviour:
@@ -1262,7 +1262,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -650, y: -434}
-  m_SizeDelta: {x: 0, y: -50}
+  m_SizeDelta: {x: -29.099998, y: -50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2142766907
 MonoBehaviour:

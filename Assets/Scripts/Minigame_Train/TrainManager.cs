@@ -29,15 +29,15 @@ public class TrainManager : MonoBehaviour
         currentPointerIndex = 0;
         trainAmount = 0;
         crashedAmount = 0;
-        rangeBetweenPointerAndTrain = 150;
-        rangeBetweenTrain = 300;
+        rangeBetweenPointerAndTrain = 300;
+        rangeBetweenTrain = 700;
 
         InitTrainSection(0);
 
         trains = trainSection.GetComponentsInChildren<Train>();
         SetTrainConnection(trains);
 
-        pointerDiffPosition = new Vector3((trains[1].transform.position.x - trains[0].transform.position.x) / 2, -rangeBetweenPointerAndTrain, 0);
+        pointerDiffPosition = new Vector3((trains[1].transform.position.x - trains[0].transform.position.x) / 2, rangeBetweenPointerAndTrain, 0);
         pointer.transform.position = trains[0].transform.position + pointerDiffPosition;
     }
 
@@ -46,7 +46,7 @@ public class TrainManager : MonoBehaviour
         if (mode == 0)
         {
             // easy mode
-            trainAmount = 5;
+            trainAmount = 3;
             crashedAmount = 1;
         }
 
@@ -76,6 +76,7 @@ public class TrainManager : MonoBehaviour
         for (int i = 0; i < trains.Length - 1; i++)
         {
             trains[i].SetRightConnected(true);
+            trains[i].SetNextTrainPosition(trains[i + 1].GetTrainPosition());
         }
     }
 

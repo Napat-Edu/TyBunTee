@@ -1,10 +1,11 @@
-using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Train : MonoBehaviour
 {
     [SerializeField] bool isCrashed;
     [SerializeField] Transform trainHeader;
+    [SerializeField] Image connectLiner;
 
     Transform nextTrainPosition;
 
@@ -27,9 +28,10 @@ public class Train : MonoBehaviour
         isRightConnected = isConnect;
     }
 
-    public void SetTrainPosition(Transform nextPosition)
+    public void SetNextTrainPosition(Transform nextPosition)
     {
         nextTrainPosition = nextPosition;
+        // connect line to next train position
     }
 
     public Transform GetTrainPosition()
