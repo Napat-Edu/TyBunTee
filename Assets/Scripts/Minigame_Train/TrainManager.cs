@@ -19,17 +19,21 @@ public class TrainManager : MonoBehaviour
     int currentPointerIndex;
     int trainAmount;
     int crashedAmount;
+    int rangeBetweenTrain;
+    int rangeBetweenPointerAndTrain;
 
     void Awake()
     {
         currentPointerIndex = 0;
         trainAmount = 0;
         crashedAmount = 0;
+        rangeBetweenPointerAndTrain = 150;
+        rangeBetweenTrain = 300;
 
         InitTrainSection(0);
 
         Train train = trainSection.GetComponentInChildren<Train>();
-        pointer.transform.position = train.transform.position + new Vector3(0, -90, 0);
+        pointer.transform.position = train.transform.position + new Vector3(0, -rangeBetweenPointerAndTrain, 0);
     }
 
     void InitTrainSection(int mode)
@@ -58,7 +62,7 @@ public class TrainManager : MonoBehaviour
             }
 
             newGameObject.transform.SetParent(trainSection.transform);
-            genTrainPosition += new Vector3(200, 0, 0);
+            genTrainPosition += new Vector3(rangeBetweenTrain, 0, 0);
         }
     }
 
@@ -68,7 +72,7 @@ public class TrainManager : MonoBehaviour
         if (currentPointerIndex > 0)
         {
             currentPointerIndex -= 1;
-            pointer.transform.position = trains[currentPointerIndex].transform.position + new Vector3(0, -90, 0);
+            pointer.transform.position = trains[currentPointerIndex].transform.position + new Vector3(0, -rangeBetweenPointerAndTrain, 0);
         }
     }
 
@@ -78,7 +82,7 @@ public class TrainManager : MonoBehaviour
         if (currentPointerIndex < trainAmount - 1)
         {
             currentPointerIndex += 1;
-            pointer.transform.position = trains[currentPointerIndex].transform.position + new Vector3(0, -90, 0);
+            pointer.transform.position = trains[currentPointerIndex].transform.position + new Vector3(0, -rangeBetweenPointerAndTrain, 0);
         }
     }
 }
