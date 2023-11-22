@@ -457,8 +457,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftButton: {fileID: 1854694617}
   rightButton: {fileID: 2142766909}
-  saveLeftTrainButton: {fileID: 1784687467}
-  saveRightTrainButton: {fileID: 0}
+  cutBokeyButton: {fileID: 1784687467}
   trainSection: {fileID: 1852893312}
   normalTrain: {fileID: 8455151262053575910, guid: 1b2d39dcf5e70dd46934af4803b25b16, type: 3}
   crashedTrain: {fileID: 6467772228768905118, guid: 5c81fcb6aaa469045bb5cd00aae289e4, type: 3}

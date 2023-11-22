@@ -6,8 +6,7 @@ public class TrainManager : MonoBehaviour
     [SerializeField] Button leftButton;
     [SerializeField] Button rightButton;
 
-    [SerializeField] Button saveLeftTrainButton;
-    [SerializeField] Button saveRightTrainButton;
+    [SerializeField] Button cutBokeyButton;
 
     [SerializeField] GameObject trainSection;
     [SerializeField] GameObject normalTrain;
@@ -15,6 +14,9 @@ public class TrainManager : MonoBehaviour
     [SerializeField] GameObject pointer;
 
     [SerializeField] Transform trainInitialPosition;
+
+    Train[] trains;
+    Vector3 pointerDiffPosition;
 
     int currentPointerIndex;
     int trainAmount;
@@ -32,8 +34,11 @@ public class TrainManager : MonoBehaviour
 
         InitTrainSection(0);
 
-        Train train = trainSection.GetComponentInChildren<Train>();
-        pointer.transform.position = train.transform.position + new Vector3(0, -rangeBetweenPointerAndTrain, 0);
+        trains = trainSection.GetComponentsInChildren<Train>();
+        SetTrainConnection(trains);
+
+        pointerDiffPosition = new Vector3((trains[1].transform.position.x - trains[0].transform.position.x) / 2, -rangeBetweenPointerAndTrain, 0);
+        pointer.transform.position = trains[0].transform.position + pointerDiffPosition;
     }
 
     void InitTrainSection(int mode)
@@ -41,7 +46,7 @@ public class TrainManager : MonoBehaviour
         if (mode == 0)
         {
             // easy mode
-            trainAmount = 10;
+            trainAmount = 5;
             crashedAmount = 1;
         }
 
@@ -66,23 +71,29 @@ public class TrainManager : MonoBehaviour
         }
     }
 
+    void SetTrainConnection(Train[] trains)
+    {
+        for (int i = 0; i < trains.Length - 1; i++)
+        {
+            trains[i].SetRightConnected(true);
+        }
+    }
+
     public void GoLeftBokey()
     {
-        Train[] trains = trainSection.GetComponentsInChildren<Train>();
         if (currentPointerIndex > 0)
         {
             currentPointerIndex -= 1;
-            pointer.transform.position = trains[currentPointerIndex].transform.position + new Vector3(0, -rangeBetweenPointerAndTrain, 0);
+            pointer.transform.position = trains[currentPointerIndex].transform.position + pointerDiffPosition;
         }
     }
 
     public void GoRightBokey()
     {
-        Train[] trains = trainSection.GetComponentsInChildren<Train>();
-        if (currentPointerIndex < trainAmount - 1)
+        if (currentPointerIndex < trainAmount - 2)
         {
             currentPointerIndex += 1;
-            pointer.transform.position = trains[currentPointerIndex].transform.position + new Vector3(0, -rangeBetweenPointerAndTrain, 0);
+            pointer.transform.position = trains[currentPointerIndex].transform.position + pointerDiffPosition;
         }
     }
 }
