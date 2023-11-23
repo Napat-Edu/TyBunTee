@@ -460,7 +460,7 @@ MonoBehaviour:
   cutBokeyButton: {fileID: 1784687467}
   trainSection: {fileID: 1852893312}
   normalTrain: {fileID: 1039138049571919692, guid: 1b2d39dcf5e70dd46934af4803b25b16, type: 3}
-  crashedTrain: {fileID: 1039138049571919692, guid: f7aeb087df02dfe4c936eb7100dd1a6f, type: 3}
+  crashedTrain: {fileID: 1039138049571919692, guid: f3dd2c02a845f0749abae27e4f40a0a4, type: 3}
   pointer: {fileID: 24992820}
   trainInitialPosition: {fileID: 1659827444}
 --- !u!1 &863285376
@@ -733,7 +733,7 @@ Canvas:
   m_GameObject: {fileID: 1466635502}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
