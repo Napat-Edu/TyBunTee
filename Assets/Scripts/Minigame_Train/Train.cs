@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Train : MonoBehaviour
 {
     [SerializeField] bool isCrashed;
     [SerializeField] Transform trainHeader;
     [SerializeField] Transform trainTail;
-    [SerializeField] LineRenderer connectLiner;
+    [SerializeField] Image liner;
 
     Transform nextTrainPosition;
 
@@ -16,8 +17,6 @@ public class Train : MonoBehaviour
     {
         isLeftConnected = false;
         isRightConnected = false;
-        connectLiner.SetPosition(0, new Vector3(trainTail.transform.position.x, trainTail.transform.position.y, 0));
-        connectLiner.SetPosition(1, new Vector3(trainTail.transform.position.x, trainTail.transform.position.y, 0));
     }
 
     public void SetLeftConnected(bool isConnect)
@@ -33,11 +32,17 @@ public class Train : MonoBehaviour
     public void SetNextTrainPosition(Transform nextPosition)
     {
         nextTrainPosition = nextPosition;
-        connectLiner.SetPosition(1, new Vector3(nextTrainPosition.transform.position.x, nextTrainPosition.transform.position.y, 0));
+        ConnectLine();
     }
 
     public Transform GetTrainPosition()
     {
         return trainHeader.transform;
+    }
+
+    void ConnectLine()
+    {
+        liner.rectTransform.sizeDelta = new Vector2(nextTrainPosition.position.x - trainTail.position.x + 10, 60);
+        liner.rectTransform.anchoredPosition = new Vector2(liner.rectTransform.anchoredPosition.x + (nextTrainPosition.position.x - trainTail.position.x + 8) / 2, liner.rectTransform.anchoredPosition.y);
     }
 }
