@@ -44,5 +44,32 @@ public class Train : MonoBehaviour
     {
         liner.rectTransform.sizeDelta = new Vector2(nextTrainPosition.position.x - trainTail.position.x + 10, 60);
         liner.rectTransform.anchoredPosition = new Vector2(liner.rectTransform.anchoredPosition.x + (nextTrainPosition.position.x - trainTail.position.x + 8) / 2, liner.rectTransform.anchoredPosition.y);
+        isRightConnected = true;
+    }
+
+    public void DisableTrainConnection()
+    {
+        liner.enabled = false;
+        isRightConnected = false;
+    }
+
+    public void EnableTrainConnection()
+    {
+        liner.enabled = true;
+        isRightConnected = true;
+    }
+
+    public void ConnectTrain()
+    {
+        if (!isRightConnected)
+        {
+            TrainManager trainManager = FindObjectOfType<TrainManager>();
+            Train nextTrain = trainManager.GetNextTrainInfo();
+            if (nextTrain != null)
+            {
+                // SetNextTrainPosition(nextTrain.transform);
+                EnableTrainConnection();
+            }
+        }
     }
 }

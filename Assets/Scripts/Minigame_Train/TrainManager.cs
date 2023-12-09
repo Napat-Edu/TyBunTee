@@ -97,4 +97,23 @@ public class TrainManager : MonoBehaviour
             pointer.transform.position = trains[currentPointerIndex].transform.position + pointerDiffPosition;
         }
     }
+
+    public void CutBokey()
+    {
+        trains = trainSection.GetComponentsInChildren<Train>();
+        trains[currentPointerIndex].DisableTrainConnection();
+    }
+
+    public Train GetNextTrainInfo()
+    {
+        trains = trainSection.GetComponentsInChildren<Train>();
+        if (trains[currentPointerIndex + 1] != null)
+        {
+            return trains[currentPointerIndex + 1];
+        }
+        else
+        {
+            return null;
+        }
+    }
 }
