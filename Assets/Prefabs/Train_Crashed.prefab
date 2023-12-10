@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d090774374d9a9046a05aae2bef42dc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCrashed: 0
+  isCrashed: 1
   trainHeader: {fileID: 5233704025605560843}
   trainTail: {fileID: 585466471923618962}
   liner: {fileID: 6111029343490211520}

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -82,7 +83,9 @@ public class TrainManager : MonoBehaviour
         {
             trains[i].SetRightConnected(true);
             trains[i].SetNextTrainPosition(trains[i + 1].GetTrainPosition());
+            trains[i].SetTrainIndex(i);
         }
+        trains[^1].SetTrainIndex(trains.Length - 1);
     }
 
     public void GoLeftBokey()
@@ -121,14 +124,16 @@ public class TrainManager : MonoBehaviour
     {
         trains = trainSection.GetComponentsInChildren<Train>();
         trains[currentPointerIndex].DisableTrainConnection();
+
+        DeleteCrashedTrain();
     }
 
-    public Train GetNextTrainInfo()
+    public Train GetNextTrainInfo(int currentTrainIndex)
     {
         trains = trainSection.GetComponentsInChildren<Train>();
-        if (trains[currentPointerIndex + 1] != null)
+        if (trains[currentTrainIndex + 1] != null)
         {
-            return trains[currentPointerIndex + 1];
+            return trains[currentTrainIndex + 1];
         }
         else
         {
@@ -136,16 +141,56 @@ public class TrainManager : MonoBehaviour
         }
     }
 
-    public Train GetBeforeTrainInfo()
+    public Train GetBeforeTrainInfo(int currentTrainIndex)
     {
         trains = trainSection.GetComponentsInChildren<Train>();
-        if (trains[currentPointerIndex] != null)
+        if (trains[currentTrainIndex - 1] != null)
         {
-            return trains[currentPointerIndex];
+            return trains[currentTrainIndex - 1];
         }
         else
         {
             return null;
         }
+    }
+
+    void DeleteCrashedTrain()
+    {
+        for (int i = 0; i < trains.Length; i++)
+        {
+            if (
+                trains[i].GetTrainType() &&
+                !trains[i - 1].GetConnectStatus() &&
+                !trains[i].GetConnectStatus()
+            )
+            {
+                StartCoroutine(DestroyTrainAndShift(i));
+            }
+        }
+        trains = trainSection.GetComponentsInChildren<Train>();
+    }
+
+    IEnumerator DestroyTrainAndShift(int i)
+    {
+        Destroy(trains[i].gameObject);
+        yield return new WaitForSeconds((float)0.25);
+
+        trains = trainSection.GetComponentsInChildren<Train>();
+        currentPointerIndex--;
+        trainAmount--;
+        crashedAmount--;
+        isPointerFocusRight = !isPointerFocusRight;
+        isPointerFocusLeft = !isPointerFocusLeft;
+        for (int j = i; j < trains.Length; j++)
+        {
+            Vector3 nextTrainPos = new(trains[j - 1].transform.position.x + rangeBetweenTrain, trains[j - 1].transform.position.y, 0);
+            trains[j].transform.position = nextTrainPos;
+            if (j < trains.Length - 1)
+            {
+                trains[j].SetNextTrainPosition(trains[j + 1].GetTrainPosition());
+            }
+            trains[j].DecrementIndex();
+        }
+        pointer.transform.position = trains[currentPointerIndex].transform.position + pointerDiffPosition;
     }
 }

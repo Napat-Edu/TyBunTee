@@ -14,6 +14,7 @@ public class Train : MonoBehaviour
 
     bool isRightConnected;
     bool isReConnectLineState;
+    int trainIndex;
 
     [DllImport("user32.dll")]
     static extern bool SetCursorPos(int X, int Y);
@@ -23,6 +24,7 @@ public class Train : MonoBehaviour
         isRightConnected = false;
         isReConnectLineState = false;
         trainButton.enabled = false;
+        trainIndex = -1;
     }
 
     void Update()
@@ -38,6 +40,11 @@ public class Train : MonoBehaviour
 
             // SetCursorPos();
         }
+    }
+
+    public void SetTrainIndex(int newIndex)
+    {
+        trainIndex = newIndex;
     }
 
     public void SetRightConnected(bool isConnect)
@@ -79,7 +86,7 @@ public class Train : MonoBehaviour
         if (!isRightConnected)
         {
             TrainManager trainManager = FindObjectOfType<TrainManager>();
-            Train nextTrain = trainManager.GetNextTrainInfo();
+            Train nextTrain = trainManager.GetNextTrainInfo(trainIndex);
             if (nextTrain != null)
             {
                 // SetNextTrainPosition(nextTrain.transform);
@@ -103,17 +110,33 @@ public class Train : MonoBehaviour
     public void ClickTrainButtonConnect()
     {
         TrainManager trainManager = FindObjectOfType<TrainManager>();
-        Train beforeTrain = trainManager.GetBeforeTrainInfo();
+        Train beforeTrain = trainManager.GetBeforeTrainInfo(trainIndex);
 
         DisableTrainButton();
 
         beforeTrain.SetIsReConnectLineState();
         beforeTrain.EnableTrainConnection();
-        beforeTrain.ConnectLine();
+
+        beforeTrain.SetNextTrainPosition(trainHeader);
     }
 
     public void SetIsReConnectLineState()
     {
         isReConnectLineState = false;
+    }
+
+    public bool GetTrainType()
+    {
+        return isCrashed;
+    }
+
+    public bool GetConnectStatus()
+    {
+        return isRightConnected;
+    }
+
+    public void DecrementIndex()
+    {
+        trainIndex--;
     }
 }
