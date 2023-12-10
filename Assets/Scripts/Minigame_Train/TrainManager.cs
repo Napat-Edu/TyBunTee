@@ -116,4 +116,17 @@ public class TrainManager : MonoBehaviour
             return null;
         }
     }
+
+    public Train GetBeforeTrainInfo()
+    {
+        trains = trainSection.GetComponentsInChildren<Train>();
+        if (trains[currentPointerIndex] != null)
+        {
+            return trains[currentPointerIndex];
+        }
+        else
+        {
+            return null;
+        }
+    }
 }
