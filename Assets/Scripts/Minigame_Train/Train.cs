@@ -12,7 +12,6 @@ public class Train : MonoBehaviour
 
     Transform nextTrainPosition;
 
-    bool isLeftConnected;
     bool isRightConnected;
     bool isReConnectLineState;
 
@@ -21,7 +20,6 @@ public class Train : MonoBehaviour
 
     void Awake()
     {
-        isLeftConnected = false;
         isRightConnected = false;
         isReConnectLineState = false;
         trainButton.enabled = false;
@@ -40,11 +38,6 @@ public class Train : MonoBehaviour
 
             // SetCursorPos();
         }
-    }
-
-    public void SetLeftConnected(bool isConnect)
-    {
-        isLeftConnected = isConnect;
     }
 
     public void SetRightConnected(bool isConnect)

@@ -24,6 +24,9 @@ public class TrainManager : MonoBehaviour
     int rangeBetweenTrain;
     int rangeBetweenPointerAndTrain;
 
+    bool isPointerFocusRight;
+    bool isPointerFocusLeft;
+
     void Awake()
     {
         currentPointerIndex = 0;
@@ -31,6 +34,8 @@ public class TrainManager : MonoBehaviour
         crashedAmount = 0;
         rangeBetweenPointerAndTrain = 300;
         rangeBetweenTrain = 700;
+        isPointerFocusRight = false;
+        isPointerFocusLeft = false;
 
         InitTrainSection(0);
 
@@ -46,7 +51,7 @@ public class TrainManager : MonoBehaviour
         if (mode == 0)
         {
             // easy mode
-            trainAmount = 3;
+            trainAmount = 4;
             crashedAmount = 1;
         }
 
@@ -56,7 +61,7 @@ public class TrainManager : MonoBehaviour
         {
             GameObject newGameObject;
 
-            if (currentCrashedAmount != crashedAmount && (Random.Range(0, 1.0f) < 0.5 || (i + 1 + crashedAmount >= trainAmount)))
+            if (currentCrashedAmount != crashedAmount && (Random.Range(0, 1.0f) < 0.5 || (i + 1 + crashedAmount >= trainAmount)) && i != 0)
             {
                 newGameObject = Instantiate(crashedTrain, genTrainPosition, Quaternion.identity);
                 currentCrashedAmount += 1;
@@ -85,7 +90,14 @@ public class TrainManager : MonoBehaviour
         if (currentPointerIndex > 0)
         {
             currentPointerIndex -= 1;
+            if (isPointerFocusLeft)
+            {
+                Vector2 newTrainSectionPos = new(trainSection.transform.position.x + rangeBetweenTrain, trainSection.transform.position.y);
+                trainSection.transform.position = newTrainSectionPos;
+            }
             pointer.transform.position = trains[currentPointerIndex].transform.position + pointerDiffPosition;
+            isPointerFocusLeft = true;
+            isPointerFocusRight = false;
         }
     }
 
@@ -94,7 +106,14 @@ public class TrainManager : MonoBehaviour
         if (currentPointerIndex < trainAmount - 2)
         {
             currentPointerIndex += 1;
+            if (isPointerFocusRight)
+            {
+                Vector2 newTrainSectionPos = new(trainSection.transform.position.x - rangeBetweenTrain, trainSection.transform.position.y);
+                trainSection.transform.position = newTrainSectionPos;
+            }
             pointer.transform.position = trains[currentPointerIndex].transform.position + pointerDiffPosition;
+            isPointerFocusRight = true;
+            isPointerFocusLeft = false;
         }
     }
 
