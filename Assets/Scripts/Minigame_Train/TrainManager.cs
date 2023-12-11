@@ -176,11 +176,14 @@ public class TrainManager : MonoBehaviour
         yield return new WaitForSeconds((float)0.25);
 
         trains = trainSection.GetComponentsInChildren<Train>();
-        currentPointerIndex--;
         trainAmount--;
         crashedAmount--;
-        isPointerFocusRight = !isPointerFocusRight;
-        isPointerFocusLeft = !isPointerFocusLeft;
+        if (!isPointerFocusLeft)
+        {
+            currentPointerIndex--;
+            isPointerFocusRight = !isPointerFocusRight;
+            isPointerFocusLeft = !isPointerFocusLeft;
+        }
         for (int j = i; j < trains.Length; j++)
         {
             Vector3 nextTrainPos = new(trains[j - 1].transform.position.x + rangeBetweenTrain, trains[j - 1].transform.position.y, 0);
