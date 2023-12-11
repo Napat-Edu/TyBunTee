@@ -6,9 +6,9 @@ public class TrainManager : MonoBehaviour
 {
     [SerializeField] Button leftButton;
     [SerializeField] Button rightButton;
-
     [SerializeField] Button cutBokeyButton;
 
+    [SerializeField] GameObject WinPopup;
     [SerializeField] GameObject trainSection;
     [SerializeField] GameObject normalTrain;
     [SerializeField] GameObject crashedTrain;
@@ -37,6 +37,7 @@ public class TrainManager : MonoBehaviour
         rangeBetweenTrain = 700;
         isPointerFocusRight = false;
         isPointerFocusLeft = false;
+        WinPopup.SetActive(false);
 
         InitTrainSection(0);
 
@@ -216,7 +217,7 @@ public class TrainManager : MonoBehaviour
 
         if (!isCrashedTrainExist && isAllTrainConnected)
         {
-            Debug.Log("CLEAR!");
+            WinPopup.SetActive(true);
         }
     }
 }
