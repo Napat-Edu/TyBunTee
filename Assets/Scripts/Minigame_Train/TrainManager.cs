@@ -196,4 +196,27 @@ public class TrainManager : MonoBehaviour
         }
         pointer.transform.position = trains[currentPointerIndex].transform.position + pointerDiffPosition;
     }
+
+    public void CheckWinCondition()
+    {
+        bool isAllTrainConnected = true;
+        bool isCrashedTrainExist = false;
+
+        for (int i = 0; i < trains.Length - 1; i++)
+        {
+            if (!trains[i].GetConnectStatus())
+            {
+                isAllTrainConnected = false;
+            }
+            if (trains[i].GetTrainType())
+            {
+                isCrashedTrainExist = true;
+            }
+        }
+
+        if (!isCrashedTrainExist && isAllTrainConnected)
+        {
+            Debug.Log("CLEAR!");
+        }
+    }
 }

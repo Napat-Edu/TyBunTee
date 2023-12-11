@@ -116,8 +116,9 @@ public class Train : MonoBehaviour
 
         beforeTrain.SetIsReConnectLineState();
         beforeTrain.EnableTrainConnection();
-
         beforeTrain.SetNextTrainPosition(trainHeader);
+
+        trainManager.CheckWinCondition();
     }
 
     public void SetIsReConnectLineState()
