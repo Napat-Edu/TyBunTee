@@ -8,6 +8,7 @@ public class Fall_GameManagement : MonoBehaviour
 {
     public static bool isPlaying = false;
     public static bool isGameEnd = false;
+    public static Fall_GameManagement main;
     [SerializeField] private int gameLevel = 0;
     [SerializeField] private Fall_MapManagement mapManagement;
     [SerializeField] private Fall_BotManagement botManagement;
@@ -21,6 +22,11 @@ public class Fall_GameManagement : MonoBehaviour
     private List<int> oper;
     private List<int> option;
     private int time = 0;
+
+    void Awake()
+    {
+        main = this;
+    }
 
     void Start()
     {
@@ -71,8 +77,6 @@ public class Fall_GameManagement : MonoBehaviour
 
     public void StartGame()
     {
-        if (isGameEnd) return;
-
         isPlaying = true;
 
         colorManagement.RandomColor();
@@ -90,6 +94,7 @@ public class Fall_GameManagement : MonoBehaviour
 
         time = 10;
         textTime.text = "Time: " + time;
+
         StartCoroutine(GameRun());
     }
 
@@ -118,8 +123,6 @@ public class Fall_GameManagement : MonoBehaviour
         mapManagement.DestroyMap(calculate());
 
         yield return new WaitForSeconds(5f);
-
-        StartGame();
     }
 
     public void GenerateQuestion(int count)

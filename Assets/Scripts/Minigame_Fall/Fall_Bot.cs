@@ -23,7 +23,7 @@ public class Fall_Bot : MonoBehaviour, Fall_Character
     }
     void Update()
     {
-        if (Vector3.Distance(transform.position, target) > 0.05f  && !die)
+        if (Vector3.Distance(transform.position, target) > 0.05f && !die)
         {
             transform.position = Vector2.MoveTowards(transform.position, target, Time.deltaTime * 10);
         }
@@ -33,6 +33,7 @@ public class Fall_Bot : MonoBehaviour, Fall_Character
             if (transform.position.y < -20)
             {
                 Destroy(gameObject);
+                Fall_GameManagement.main.StartGame();
             }
         }
     }
