@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,9 +14,6 @@ public class Train : MonoBehaviour
     bool isRightConnected;
     bool isReConnectLineState;
     int trainIndex;
-
-    [DllImport("user32.dll")]
-    static extern bool SetCursorPos(int X, int Y);
 
     void Awake()
     {
@@ -37,8 +33,6 @@ public class Train : MonoBehaviour
 
             liner.rectTransform.sizeDelta = new Vector2(hypoLength, 60);
             liner.rectTransform.rotation = Quaternion.Euler(new Vector3(0, 0, angleDegree));
-
-            // SetCursorPos();
         }
     }
 
@@ -93,6 +87,7 @@ public class Train : MonoBehaviour
                 isReConnectLineState = true;
                 liner.enabled = true;
                 nextTrain.EnableTrainButton();
+                trainManager.StartSlowCurser(trainTail);
             }
         }
     }
@@ -119,6 +114,7 @@ public class Train : MonoBehaviour
         beforeTrain.SetNextTrainPosition(trainHeader);
 
         trainManager.CheckWinCondition();
+        trainManager.StopSlowCurser();
     }
 
     public void SetIsReConnectLineState()

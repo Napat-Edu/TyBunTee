@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +20,8 @@ public class TrainManager : MonoBehaviour
     Train[] trains;
     Vector3 pointerDiffPosition;
 
+    Transform currentPlayerFocusTrainPos;
+
     int currentPointerIndex;
     int trainAmount;
     int crashedAmount;
@@ -27,6 +30,11 @@ public class TrainManager : MonoBehaviour
 
     bool isPointerFocusRight;
     bool isPointerFocusLeft;
+
+    int difficultLevel;
+
+    [DllImport("user32.dll")]
+    static extern bool SetCursorPos(int X, int Y);
 
     void Awake()
     {
@@ -39,6 +47,7 @@ public class TrainManager : MonoBehaviour
         isPointerFocusLeft = false;
         WinPopup.SetActive(false);
 
+        difficultLevel = 1;
         InitTrainSection(1);
 
         trains = trainSection.GetComponentsInChildren<Train>();
@@ -48,21 +57,21 @@ public class TrainManager : MonoBehaviour
         pointer.transform.position = trains[0].transform.position + pointerDiffPosition;
     }
 
-    void InitTrainSection(int mode)
+    void InitTrainSection(int difficultLevel)
     {
-        if (mode == 0)
+        if (difficultLevel == 0)
         {
             // easy mode
             trainAmount = 4;
             crashedAmount = 1;
         }
-        else if (mode == 1)
+        else if (difficultLevel == 1)
         {
             // normal mode
             trainAmount = 7;
             crashedAmount = 2;
         }
-        else if (mode == 2)
+        else if (difficultLevel == 2)
         {
             // hard mode
             trainAmount = 10;
@@ -88,6 +97,11 @@ public class TrainManager : MonoBehaviour
             newGameObject.transform.SetParent(trainSection.transform);
             genTrainPosition += new Vector3(rangeBetweenTrain, 0, 0);
         }
+    }
+
+    public int GetDifficultLevel()
+    {
+        return difficultLevel;
     }
 
     void SetTrainConnection(Train[] trains)
@@ -231,5 +245,34 @@ public class TrainManager : MonoBehaviour
         {
             WinPopup.SetActive(true);
         }
+    }
+
+    public void StartSlowCurser(Transform trainTail)
+    {
+        currentPlayerFocusTrainPos = trainTail;
+
+        float frequency = 1.0f;
+        if (difficultLevel == 1)
+        {
+            frequency = 0.7f;
+        }
+        else if (difficultLevel == 2)
+        {
+            frequency = 0.5f;
+        }
+        InvokeRepeating(nameof(SlowCurser), frequency, frequency);
+    }
+
+    public void StopSlowCurser()
+    {
+        CancelInvoke();
+    }
+
+    void SlowCurser()
+    {
+        SetCursorPos(
+            (int)((int)currentPlayerFocusTrainPos.position.x + (rangeBetweenTrain * Random.Range(0, 0.5f))),
+            (int)((int)currentPlayerFocusTrainPos.position.y + (300 * Random.Range(0, 0.5f)))
+        );
     }
 }
