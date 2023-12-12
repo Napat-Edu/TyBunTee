@@ -77,8 +77,9 @@ public class Fall_GameManagement : MonoBehaviour
 
     public void StartGame()
     {
-        isPlaying = true;
+        if (isGameEnd) return;
 
+        isPlaying = true;
         colorManagement.RandomColor();
 
         if (gameLevel == 1)
@@ -117,12 +118,15 @@ public class Fall_GameManagement : MonoBehaviour
                 colorManagement.HideColor();
                 textQuestion.gameObject.SetActive(false);
             }
+
+            if (isGameEnd) yield break;
         }
         isPlaying = false;
         Fall_Player.main.Think();
         mapManagement.DestroyMap(calculate());
 
         yield return new WaitForSeconds(5f);
+        StartGame();
     }
 
     public void GenerateQuestion(int count)

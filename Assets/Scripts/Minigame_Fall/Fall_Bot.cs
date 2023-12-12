@@ -30,10 +30,9 @@ public class Fall_Bot : MonoBehaviour, Fall_Character
 
         if (die)
         {
-            if (transform.position.y < -20)
+            if (transform.position.y < -10)
             {
                 Destroy(gameObject);
-                Fall_GameManagement.main.StartGame();
             }
         }
     }
