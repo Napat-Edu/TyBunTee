@@ -6,9 +6,9 @@ public class TrainManager : MonoBehaviour
 {
     [SerializeField] Button leftButton;
     [SerializeField] Button rightButton;
-
     [SerializeField] Button cutBokeyButton;
 
+    [SerializeField] GameObject WinPopup;
     [SerializeField] GameObject trainSection;
     [SerializeField] GameObject normalTrain;
     [SerializeField] GameObject crashedTrain;
@@ -37,6 +37,7 @@ public class TrainManager : MonoBehaviour
         rangeBetweenTrain = 700;
         isPointerFocusRight = false;
         isPointerFocusLeft = false;
+        WinPopup.SetActive(false);
 
         InitTrainSection(1);
 
@@ -188,11 +189,14 @@ public class TrainManager : MonoBehaviour
         yield return new WaitForSeconds((float)0.25);
 
         trains = trainSection.GetComponentsInChildren<Train>();
-        currentPointerIndex--;
         trainAmount--;
         crashedAmount--;
-        isPointerFocusRight = !isPointerFocusRight;
-        isPointerFocusLeft = !isPointerFocusLeft;
+        if (!isPointerFocusLeft)
+        {
+            currentPointerIndex--;
+            isPointerFocusRight = !isPointerFocusRight;
+            isPointerFocusLeft = !isPointerFocusLeft;
+        }
         for (int j = i; j < trains.Length; j++)
         {
             Vector3 nextTrainPos = new(trains[j - 1].transform.position.x + rangeBetweenTrain, trains[j - 1].transform.position.y, 0);
@@ -204,5 +208,28 @@ public class TrainManager : MonoBehaviour
             trains[j].DecrementIndex();
         }
         pointer.transform.position = trains[currentPointerIndex].transform.position + pointerDiffPosition;
+    }
+
+    public void CheckWinCondition()
+    {
+        bool isAllTrainConnected = true;
+        bool isCrashedTrainExist = false;
+
+        for (int i = 0; i < trains.Length - 1; i++)
+        {
+            if (!trains[i].GetConnectStatus())
+            {
+                isAllTrainConnected = false;
+            }
+            if (trains[i].GetTrainType())
+            {
+                isCrashedTrainExist = true;
+            }
+        }
+
+        if (!isCrashedTrainExist && isAllTrainConnected)
+        {
+            WinPopup.SetActive(true);
+        }
     }
 }
