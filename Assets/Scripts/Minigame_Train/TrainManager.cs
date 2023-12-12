@@ -38,7 +38,7 @@ public class TrainManager : MonoBehaviour
         isPointerFocusRight = false;
         isPointerFocusLeft = false;
 
-        InitTrainSection(0);
+        InitTrainSection(1);
 
         trains = trainSection.GetComponentsInChildren<Train>();
         SetTrainConnection(trains);
@@ -54,6 +54,18 @@ public class TrainManager : MonoBehaviour
             // easy mode
             trainAmount = 4;
             crashedAmount = 1;
+        }
+        else if (mode == 1)
+        {
+            // normal mode
+            trainAmount = 7;
+            crashedAmount = 2;
+        }
+        else if (mode == 2)
+        {
+            // hard mode
+            trainAmount = 10;
+            crashedAmount = 3;
         }
 
         int currentCrashedAmount = 0;
