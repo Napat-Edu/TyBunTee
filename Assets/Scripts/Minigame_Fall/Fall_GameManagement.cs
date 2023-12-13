@@ -60,18 +60,16 @@ public class Fall_GameManagement : MonoBehaviour
         {
             case 0:
                 mapManagement.CreateEasyMap();
-                botManagement.CreateBot(2);
                 break;
             case 1:
                 mapManagement.CreateNormalMap();
-                botManagement.CreateBot(3);
                 break;
             case 2:
                 mapManagement.CreateHardMap();
-                botManagement.CreateBot(4);
                 break;
         }
 
+        botManagement.CreateBot(3);
         Fall_Player.main.StepOn(mapManagement.GetMapNoPlayer());
     }
 
@@ -108,12 +106,7 @@ public class Fall_GameManagement : MonoBehaviour
             time--;
             textTime.text = "Time: " + time;
 
-            if (gameLevel == 1 && time == 5)
-            {
-                colorManagement.HideColor();
-                textQuestion.gameObject.SetActive(false);
-            }
-            else if (gameLevel == 2 && time == 7)
+            if (gameLevel == 2 && time == 7)
             {
                 colorManagement.HideColor();
                 textQuestion.gameObject.SetActive(false);
