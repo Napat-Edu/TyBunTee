@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class QuestionManagement : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class QuestionManagement : MonoBehaviour
     [SerializeField] private DraggableItem[] answerTexts;
     [SerializeField] private TextMeshProUGUI questionText;
     [SerializeField] private ItemSlot itemSlot;
+    [SerializeField] private GameObject panelEndGame;
+    [SerializeField] private GameObject panelGameOver;
+    [SerializeField] private string nextScene;
 
     public string usedQuestions = "";
 
@@ -60,15 +64,26 @@ public class QuestionManagement : MonoBehaviour
         if (currect)
         {
             print("Correct");
-
+            panelEndGame.SetActive(true);
             // ถูกทำตรงนี้
         }
         else
         {
             print("Incorrect");
+            panelGameOver.SetActive(true);
 
             // ผิดทำตรงนี้
         }
+    }
+    public void NextScene()
+    {
+        SceneManager.LoadScene(nextScene);
+    }
+    public void RandomScore()
+    {
+        // Generate random score between -1 and 2
+        int randomScore = Random.Range(1, 5);
+        Debug.Log("Random score: " + randomScore);
     }
 }
 
