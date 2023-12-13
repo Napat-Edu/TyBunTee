@@ -95,6 +95,7 @@ public class Fall_GameManagement : MonoBehaviour
                 break;
         }
 
+        colorManagement.RandomColor();
         botManagement.CreateBot(3);
         Fall_Player.main.StepOn(mapManagement.GetMapNoPlayer());
     }
@@ -104,7 +105,6 @@ public class Fall_GameManagement : MonoBehaviour
         if (isGameEnd) return;
 
         isPlaying = true;
-        colorManagement.RandomColor();
 
         if (gameLevel == 1)
             GenerateQuestion(1);
@@ -116,7 +116,6 @@ public class Fall_GameManagement : MonoBehaviour
             oper = null;
             option = null;
         }
-
         time = 10;
         textTime.text = "Time: " + time;
 
@@ -125,6 +124,7 @@ public class Fall_GameManagement : MonoBehaviour
 
     public IEnumerator GameRun()
     {
+        colorManagement.ShowColor(getAddition());
         while (time > 0)
         {
             botManagement.BotMove();
@@ -142,7 +142,7 @@ public class Fall_GameManagement : MonoBehaviour
         }
         isPlaying = false;
         Fall_Player.main.Think();
-        mapManagement.DestroyMap(calculate());
+        mapManagement.DestroyMap();
 
         yield return new WaitForSeconds(5f);
         StartGame();
@@ -150,43 +150,32 @@ public class Fall_GameManagement : MonoBehaviour
 
     public void GenerateQuestion(int count)
     {
-        if (colorManagement.Length < 3)
+        string question = "";
+
+        oper = new List<int>();
+        option = new List<int>();
+
+        for (int i = 0; i < count; i++)
         {
-            oper = null;
-            option = null;
-            return;
-        }
+            option.Add(Random.Range(1, 4));
+            oper.Add(Random.Range(0, 2));
 
-        string question;
-        do
-        {
-            question = "";
-
-            oper = new List<int>();
-            option = new List<int>();
-
-            for (int i = 0; i < count; i++)
+            switch (oper[i])
             {
-                option.Add(Random.Range(1, 4));
-                oper.Add(Random.Range(0, 2));
-
-                switch (oper[i])
-                {
-                    case 0:
-                        question += " + " + option[i];
-                        break;
-                    case 1:
-                        question += " - " + option[i];
-                        break;
-                }
+                case 0:
+                    question += " + " + option[i];
+                    break;
+                case 1:
+                    question += " - " + option[i];
+                    break;
             }
-        } while (!colorManagement.CheckColor(calculate()));
+        }
 
         textQuestion.gameObject.SetActive(true);
         textQuestion.text = question;
     }
 
-    int calculate()
+    int getAddition()
     {
         int addition = 0;
         if (oper != null)
@@ -195,10 +184,10 @@ public class Fall_GameManagement : MonoBehaviour
             {
                 switch (oper[i])
                 {
-                    case 0:
+                    case 1:
                         addition += option[i];
                         break;
-                    case 1:
+                    case 0:
                         addition -= option[i];
                         break;
                 }

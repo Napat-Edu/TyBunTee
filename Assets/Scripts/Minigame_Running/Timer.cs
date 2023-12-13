@@ -8,6 +8,7 @@ public class Timer : MonoBehaviour
     [SerializeField] TextMeshProUGUI timerText;
     [SerializeField] float remainingTime = 10;
     [SerializeField] private GameObject panelGameOver;
+    [SerializeField] private QuestionManagement questionManagement;
     bool isCounting = true;
 
     // Update is called once per frame
@@ -36,13 +37,6 @@ public class Timer : MonoBehaviour
     public void StopTimer()
     {
         isCounting = false; // This method stops the timer countdown
-        RandomScore();
-    }
-
-    public void RandomScore()
-    {
-        // Generate random score between -1 and 2
-        int randomScore = Random.Range(-1, 3);
-        Debug.Log("Random score: " + randomScore);
+        questionManagement.LoseScore();
     }
 }

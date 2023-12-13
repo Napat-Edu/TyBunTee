@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class QuestionManagement : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class QuestionManagement : MonoBehaviour
     [SerializeField] private GameObject panelEndGame;
     [SerializeField] private GameObject panelGameOver;
     [SerializeField] private string nextScene;
+    [SerializeField] private ScoreManager scoreManager;
 
     public string usedQuestions = "";
 
@@ -65,20 +67,42 @@ public class QuestionManagement : MonoBehaviour
         {
             print("Correct");
             panelEndGame.SetActive(true);
-            RandomScore(); // Call the RandomScore method when the answer is correct
+            WinScore();
+
         }
         else
         {
             print("Incorrect");
             panelGameOver.SetActive(true);
-            // No action when the answer is incorrect (score is not randomized)
+            LoseScore();
         }
     }
 
-    public void RandomScore()
+    public void WinScore()
     {
-        int randomScore = Random.Range(1, 5);
-        Debug.Log("Random score: " + randomScore);
+        List<int> list = new List<int>() { 3, 2, 1 };
+        int[] scores = new int[] { 4, 0, 0, 0 };
+
+        for (int i = 1; i < 4; i++)
+        {
+            int rand = Random.Range(0, list.Count);
+            scores[i] = list[rand];
+            list.RemoveAt(rand);
+        }
+
+        scoreManager.UpdatePlayerScore(scores[0], scores[1], scores[2], scores[3]);
+    }
+
+    public void LoseScore()
+    {
+        int[] scores = new int[] { 0, 0, 0, 0 };
+
+        for (int i = 1; i < 4; i++)
+        {
+            scores[i] = Random.Range(0, 5);
+        }
+
+        scoreManager.UpdatePlayerScore(scores[0], scores[1], scores[2], scores[3]);
     }
 
     public void NextScene()

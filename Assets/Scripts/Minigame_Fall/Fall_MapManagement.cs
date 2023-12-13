@@ -69,6 +69,7 @@ public class Fall_MapManagement : MonoBehaviour
     void CreateMap(float[] mapPos, int size)
     {
         maps = new Fall_Map[size, size];
+        colorManagement.Init(size * size);
 
         for (int i = 0; i < size; i++)
         {
@@ -80,14 +81,14 @@ public class Fall_MapManagement : MonoBehaviour
 
                 maps[i, j] = map.GetComponent<Fall_Map>();
                 maps[i, j].SetPos(i, j);
-                maps[i, j].SetColor(colorManagement.GetInitRandom());
+                maps[i, j].SetColor(colorManagement.GetMapColor());
             }
         }
     }
 
-    public void DestroyMap(int addition)
+    public void DestroyMap()
     {
-        Color color = colorManagement.GetCurrent(addition);
+        Color color = colorManagement.GetCurrent();
         foreach (Fall_Map map in maps)
         {
             if (map != null)
@@ -95,9 +96,10 @@ public class Fall_MapManagement : MonoBehaviour
                 if (map.isColor(color))
                 {
                     map.Fall();
-                    colorManagement.RemoveCurrent();
                 }
             }
         }
+
+        colorManagement.Next();
     }
 }

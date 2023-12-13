@@ -252,6 +252,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerText: {fileID: 158323782}
   remainingTime: 15
+  panelGameOver: {fileID: 139291790}
+  questionManagement: {fileID: 643241754}
 --- !u!114 &158323782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -909,6 +911,7 @@ GameObject:
   - component: {fileID: 643241753}
   - component: {fileID: 643241752}
   - component: {fileID: 643241754}
+  - component: {fileID: 643241755}
   m_Layer: 5
   m_Name: Bord
   m_TagString: Untagged
@@ -1028,7 +1031,7 @@ MonoBehaviour:
     - 4
     - 2
     - 3
-    correctAnswer: 2
+    correctAnswer: 1
   - question: "int m=10;\r\nint *z=  \u2026 ;\r\nprintf(\"z = %d\",*z);\r\n//z =
       10\n\rFill in the blank\n"
     answers:
@@ -1052,7 +1055,20 @@ MonoBehaviour:
   panelEndGame: {fileID: 946292270}
   panelGameOver: {fileID: 139291790}
   nextScene: InGame
+  scoreManager: {fileID: 643241755}
   usedQuestions: 
+--- !u!114 &643241755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 643241750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65c574cc33ee8e24da811e9fa2e6422b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &655858292
 GameObject:
   m_ObjectHideFlags: 0
