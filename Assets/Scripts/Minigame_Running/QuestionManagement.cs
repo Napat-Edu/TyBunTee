@@ -8,38 +8,34 @@ public class QuestionManagement : MonoBehaviour
 {
     [SerializeField] private Question[] questions;
 
-    private List<Question> usedQuestions = new List<Question>();
+    Question currentQuestion = null;
 
     [SerializeField] private DraggableItem[] answerTexts;
     [SerializeField] private TextMeshProUGUI questionText;
     [SerializeField] private ItemSlot itemSlot;
+
+    public string usedQuestions = "";
 
     void Start()
     {
         RandomQuestion();
     }
 
-    void Update()
-    {
-
-    }
-
     public void RandomQuestion()
     {
         int randomIndex = Random.Range(0, questions.Length);
 
-        while (usedQuestions.Contains(questions[randomIndex]))
+        while (usedQuestions.Contains(randomIndex.ToString()))
         {
             randomIndex = Random.Range(0, questions.Length);
         }
-        Question question = questions[randomIndex];
+        currentQuestion = questions[randomIndex];
+        usedQuestions += randomIndex.ToString();
 
-        usedQuestions.Add(question);
-
-        questionText.text = question.question;
+        questionText.text = currentQuestion.question;
 
         // Randomize answers
-        List<string> answers = new List<string>(question.answers);
+        List<string> answers = new List<string>(currentQuestion.answers);
         List<string> randomizedAnswers = new List<string>();
         while (answers.Count > 0)
         {
@@ -56,15 +52,10 @@ public class QuestionManagement : MonoBehaviour
 
     public void CheckAnswer()
     {
-        if (usedQuestions.Count == 0)
-        {
-            return;
-        }
+        int index = currentQuestion.correctAnswer;
+        string answer = currentQuestion.answers[index];
 
-        Question question = questions[usedQuestions.Count - 1];
-        int index = question.correctAnswer;
-
-        bool currect = itemSlot.item.GetText() == question.answers[index];
+        bool currect = itemSlot.item.GetText().Trim() == answer.Trim();
 
         if (currect)
         {
