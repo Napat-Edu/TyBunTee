@@ -85,6 +85,7 @@ public class QuestionManagement : MonoBehaviour
 [System.Serializable]
 public class Question
 {
+    [TextArea]
     public string question;
     public string[] answers;
     public int correctAnswer;
