@@ -12,6 +12,11 @@ public class ScoreManager : MonoBehaviour
         return PlayerPrefs.GetInt("DifficultyLevel", 0);
     }
 
+    public int GetCurrentTurn()
+    {
+        return PlayerPrefs.GetInt("CurrentTurn", 0);
+    }
+
     public void UpdatePlayerScore(int p0score, int p1score, int p2score, int p3score)
     {
         int[] scores = new int[4] { p0score, p1score, p2score, p3score };
@@ -25,18 +30,33 @@ public class ScoreManager : MonoBehaviour
     public void ResetPlayerScoreAndDifficulty()
     {
         PlayerPrefs.SetInt("DifficultyLevel", 0);
+        PlayerPrefs.SetInt("CurrentTurn", 0);
         for (int i = 0; i < 4; i++)
         {
             PlayerPrefs.SetInt("PlayerScore" + i, 0);
         }
     }
 
-    public void IncreaseDifficultLevel()
+    public void SetDifficultLevel(int level)
     {
-        int oldLevel = GetDifficultyLevel();
-        if (oldLevel < 3)
+        if (level < 3)
         {
-            PlayerPrefs.SetInt("DifficultyLevel", oldLevel++);
+            PlayerPrefs.SetInt("DifficultyLevel", level);
+        }
+    }
+
+    public void CountTurn()
+    {
+        int turn = GetCurrentTurn() + 1;
+        PlayerPrefs.SetInt("CurrentTurn", turn);
+
+        if (turn >= 4)
+        {
+            SetDifficultLevel(1);
+        }
+        else if (turn >= 8)
+        {
+            SetDifficultLevel(2);
         }
     }
 }
