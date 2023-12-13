@@ -16,14 +16,14 @@ public class ButtonManager : MonoBehaviour
     public void LoadTitleScene()
     {
         ScoreManager scoreManager = FindObjectOfType<ScoreManager>();
-        scoreManager.ResetPlayerScore();
+        scoreManager.ResetPlayerScoreAndDifficulty();
         SceneManager.LoadScene("Title");
     }
 
     public void ExitGame()
     {
         ScoreManager scoreManager = FindObjectOfType<ScoreManager>();
-        scoreManager.ResetPlayerScore();
+        scoreManager.ResetPlayerScoreAndDifficulty();
         Application.Quit();
     }
 }

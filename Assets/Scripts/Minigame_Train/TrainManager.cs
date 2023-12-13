@@ -61,8 +61,8 @@ public class TrainManager : MonoBehaviour
         isPointerFocusLeft = false;
         WinPopup.SetActive(false);
 
-        difficultLevel = 1;
-        InitTrainSection(1);
+        difficultLevel = scoreManager.GetDifficultyLevel();
+        InitTrainSection(difficultLevel);
 
         isPlayerFinished = new bool[4] { false, false, false, false };
         playerScores = new int[4] { 0, 0, 0, 0 };
@@ -298,7 +298,11 @@ public class TrainManager : MonoBehaviour
         {
             frequency = 0.5f;
         }
-        InvokeRepeating(nameof(SlowCurser), frequency, frequency);
+
+        if (difficultLevel != 0)
+        {
+            InvokeRepeating(nameof(SlowCurser), frequency, frequency);
+        }
     }
 
     public void StopSlowCurser()
@@ -327,7 +331,16 @@ public class TrainManager : MonoBehaviour
             }
         }
 
-        currentEnemySuccessChance += 0.005f * difficultLevel;
+        float chaneIncreaseRate = 0.005f;
+        if (difficultLevel != 0)
+        {
+            chaneIncreaseRate *= difficultLevel;
+        }
+        else
+        {
+            chaneIncreaseRate /= 2;
+        }
+        currentEnemySuccessChance += chaneIncreaseRate;
     }
 
     public void EndMiniGame()
