@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Fall_Bot : MonoBehaviour, Fall_Character
 {
+    public int index = 0;
     public Fall_Map currentMap = null;
     private Animator animator = null;
     private SpriteRenderer spriteRenderer = null;
@@ -66,6 +67,7 @@ public class Fall_Bot : MonoBehaviour, Fall_Character
 
     public void Fall(int layer)
     {
+        Fall_GameManagement.main.SetScore(index);
         GetComponent<SpriteRenderer>().sortingOrder = layer;
         GetComponent<Rigidbody2D>().gravityScale = 1;
         animator.Play("BotFall");

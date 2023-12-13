@@ -108,6 +108,7 @@ public class Fall_Player : MonoBehaviour, Fall_Character
 
     public void Fall(int layer)
     {
+        Fall_GameManagement.main.SetScore(0);
         GetComponent<SpriteRenderer>().sortingOrder = layer;
         GetComponent<Rigidbody2D>().gravityScale = 1;
         animator.Play("Fall");

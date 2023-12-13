@@ -17,11 +17,16 @@ public class Fall_GameManagement : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textQuestion;
     [SerializeField] private GameObject panelEndGame;
     [SerializeField] private GameObject panelGameOver;
+    [SerializeField] private ScoreManager scoreManager;
 
     [SerializeField] private string nextScene;
     private List<int> oper;
     private List<int> option;
     private int time = 0;
+
+    private bool hasUpdateScore = false;
+    int[] score = new int[4] { 0, 0, 0, 0 };
+    int maxScore = 1;
 
     void Awake()
     {
@@ -37,22 +42,43 @@ public class Fall_GameManagement : MonoBehaviour
 
     void Update()
     {
-        if (isGameEnd)
+        if (isGameEnd && !hasUpdateScore)
         {
             if (Fall_Player.main == null)
             {
                 panelGameOver.SetActive(true);
+                for (int i = 0; i < 4; i++)
+                {
+                    if (score[i] == 0)
+                    {
+                        score[i] = maxScore++;
+                    }
+                }
             }
             else if (botManagement.Count == 0)
             {
                 panelEndGame.SetActive(true);
+                score[0] = maxScore++;
             }
+            UpdateScore();
         }
+    }
+
+    void UpdateScore()
+    {
+        hasUpdateScore = true;
+        scoreManager.UpdatePlayerScore(score[0], score[1], score[2], score[3]);
+    }
+
+    public void SetScore(int index)
+    {
+        score[index] = maxScore++;
     }
 
     void InitGame()
     {
-
+        gameLevel = scoreManager.GetDifficultyLevel();
+        hasUpdateScore = false;
         isPlaying = false;
         isGameEnd = false;
 

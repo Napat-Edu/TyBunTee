@@ -28,6 +28,7 @@ public class Fall_BotManagement : MonoBehaviour
         {
             Fall_Bot bot = Instantiate(botClone, new Vector3(0, 0, 0), Quaternion.identity).GetComponent<Fall_Bot>();
             bot.StepOn(mapManagement.GetMapNoPlayer());
+            bot.index = i + 1;
             bots.Add(bot);
         }
     }

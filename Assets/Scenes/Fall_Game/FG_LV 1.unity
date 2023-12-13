@@ -1428,6 +1428,7 @@ GameObject:
   - component: {fileID: 751223435}
   - component: {fileID: 751223437}
   - component: {fileID: 751223438}
+  - component: {fileID: 751223439}
   m_Layer: 0
   m_Name: GameManagement
   m_TagString: Untagged
@@ -1455,6 +1456,7 @@ MonoBehaviour:
   textQuestion: {fileID: 311645892}
   panelEndGame: {fileID: 1624152887}
   panelGameOver: {fileID: 806144145}
+  scoreManager: {fileID: 0}
   nextScene: FG_LV 1
 --- !u!4 &751223436
 Transform:
@@ -1518,6 +1520,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   botClone: {fileID: -1719440000096365911, guid: 83ff17d034066c04797300abd752b068, type: 3}
   mapManagement: {fileID: 134316938}
+--- !u!114 &751223439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 751223434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65c574cc33ee8e24da811e9fa2e6422b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &806144145
 GameObject:
   m_ObjectHideFlags: 0
