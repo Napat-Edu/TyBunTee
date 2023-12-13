@@ -61,6 +61,7 @@ public class Fall_Player : MonoBehaviour, Fall_Character
             if (transform.position.y < -10)
             {
                 Fall_GameManagement.isGameEnd = true;
+                main = null;
                 Destroy(gameObject);
             }
         }
