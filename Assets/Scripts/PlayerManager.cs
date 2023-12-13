@@ -3,20 +3,27 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI[] playerScore;
+    [SerializeField] TextMeshProUGUI[] playerScoreText;
     [SerializeField] TextMeshProUGUI difficulty;
+
+    [SerializeField] ScoreManager scoreManager;
+
+    int[] playerScore;
 
     void Awake()
     {
         difficulty.text = "Difficulty : Easy";
+        playerScore = new int[playerScoreText.Length];
         InitPlayerScore();
     }
 
     void InitPlayerScore()
     {
-        for (int i = 0; i < playerScore.Length; i++)
+        for (int i = 0; i < playerScoreText.Length; i++)
         {
-            playerScore[i].text = "Score\n" + 0 + "/30";
+            int value = scoreManager.GetPlayerScore(i);
+            playerScore[i] = value;
+            playerScoreText[i].text = "Score\n" + playerScore[i] + "/30";
         }
     }
 }
