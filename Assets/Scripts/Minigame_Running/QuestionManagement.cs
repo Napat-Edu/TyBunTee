@@ -59,32 +59,33 @@ public class QuestionManagement : MonoBehaviour
         int index = currentQuestion.correctAnswer;
         string answer = currentQuestion.answers[index];
 
-        bool currect = itemSlot.item.GetText().Trim() == answer.Trim();
+        bool correct = itemSlot.item.GetText().Trim() == answer.Trim();
 
-        if (currect)
+        if (correct)
         {
             print("Correct");
             panelEndGame.SetActive(true);
-            // ถูกทำตรงนี้
+            RandomScore(); // Call the RandomScore method when the answer is correct
         }
         else
         {
             print("Incorrect");
             panelGameOver.SetActive(true);
-
-            // ผิดทำตรงนี้
+            // No action when the answer is incorrect (score is not randomized)
         }
     }
+
+    public void RandomScore()
+    {
+        int randomScore = Random.Range(1, 5);
+        Debug.Log("Random score: " + randomScore);
+    }
+
     public void NextScene()
     {
         SceneManager.LoadScene(nextScene);
     }
-    public void RandomScore()
-    {
-        // Generate random score between -1 and 2
-        int randomScore = Random.Range(1, 5);
-        Debug.Log("Random score: " + randomScore);
-    }
+
 }
 
 

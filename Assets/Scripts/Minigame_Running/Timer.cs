@@ -7,6 +7,7 @@ public class Timer : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI timerText;
     [SerializeField] float remainingTime = 10;
+    [SerializeField] private GameObject panelGameOver;
     bool isCounting = true;
 
     // Update is called once per frame
@@ -25,6 +26,7 @@ public class Timer : MonoBehaviour
         else if (remainingTime < 0)
         {
             remainingTime = 0;
+            panelGameOver.SetActive(true);
             //isCounting  = true;
             timerText.color = Color.red;
             timerText.text = "00:00"; // Display 00:00 when time's up
