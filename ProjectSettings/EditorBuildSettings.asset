@@ -8,4 +8,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Minigame_Running.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Title.unity
+    guid: e5072b8f531fd494f8c196a2265ecefe
+  - enabled: 1
+    path: Assets/Scenes/InGame.unity
+    guid: 55ada2a9ae67b7247b5dbe3fd1c778d8
+  - enabled: 1
+    path: Assets/Scenes/Minigame_Train.unity
+    guid: e761e6469bf80aa4a93c7814e71fc8cd
   m_configObjects: {}
