@@ -2,6 +2,7 @@ using System.Runtime.InteropServices;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class TrainManager : MonoBehaviour
 {
@@ -17,6 +18,13 @@ public class TrainManager : MonoBehaviour
 
     [SerializeField] Transform trainInitialPosition;
 
+    [SerializeField] Sprite unfinishedStatusImage;
+    [SerializeField] Sprite finishedStatusImage;
+
+    [SerializeField] Image[] enemyStatusImage;
+
+    [SerializeField] ScoreManager scoreManager;
+
     Train[] trains;
     Vector3 pointerDiffPosition;
 
@@ -27,9 +35,14 @@ public class TrainManager : MonoBehaviour
     int crashedAmount;
     int rangeBetweenTrain;
     int rangeBetweenPointerAndTrain;
+    int currentScorePrize;
+    int[] playerScores;
+
+    float currentEnemySuccessChance;
 
     bool isPointerFocusRight;
     bool isPointerFocusLeft;
+    bool[] isPlayerFinished;
 
     int difficultLevel;
 
@@ -41,6 +54,7 @@ public class TrainManager : MonoBehaviour
         currentPointerIndex = 0;
         trainAmount = 0;
         crashedAmount = 0;
+        currentScorePrize = 4;
         rangeBetweenPointerAndTrain = 300;
         rangeBetweenTrain = 700;
         isPointerFocusRight = false;
@@ -50,11 +64,17 @@ public class TrainManager : MonoBehaviour
         difficultLevel = 1;
         InitTrainSection(1);
 
+        isPlayerFinished = new bool[4] { false, false, false, false };
+        playerScores = new int[4] { 0, 0, 0, 0 };
+
         trains = trainSection.GetComponentsInChildren<Train>();
         SetTrainConnection(trains);
 
         pointerDiffPosition = new Vector3((trains[1].transform.position.x - trains[0].transform.position.x) / 2, rangeBetweenPointerAndTrain, 0);
         pointer.transform.position = trains[0].transform.position + pointerDiffPosition;
+
+        currentEnemySuccessChance = 0.02f;
+        InvokeRepeating(nameof(EnemyCountdown), 1.0f, 1.0f);
     }
 
     void InitTrainSection(int difficultLevel)
@@ -243,7 +263,25 @@ public class TrainManager : MonoBehaviour
 
         if (!isCrashedTrainExist && isAllTrainConnected)
         {
+            isPlayerFinished[0] = true;
+            playerScores[0] += currentScorePrize;
+            currentScorePrize--;
+            ForceGameToEnd();
             WinPopup.SetActive(true);
+            EndMiniGame();
+        }
+    }
+
+    public void ForceGameToEnd()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            if (!isPlayerFinished[i])
+            {
+                isPlayerFinished[i] = true;
+                playerScores[i] = currentScorePrize;
+                currentScorePrize--;
+            }
         }
     }
 
@@ -265,7 +303,7 @@ public class TrainManager : MonoBehaviour
 
     public void StopSlowCurser()
     {
-        CancelInvoke();
+        CancelInvoke(nameof(SlowCurser));
     }
 
     void SlowCurser()
@@ -274,5 +312,26 @@ public class TrainManager : MonoBehaviour
             (int)((int)currentPlayerFocusTrainPos.position.x + (rangeBetweenTrain * Random.Range(0, 0.5f))),
             (int)((int)currentPlayerFocusTrainPos.position.y + (300 * Random.Range(0, 0.5f)))
         );
+    }
+
+    void EnemyCountdown()
+    {
+        for (int i = 1; i < 4; i++)
+        {
+            if (Random.Range(0.0f, 1.0f) < currentEnemySuccessChance && !isPlayerFinished[i])
+            {
+                isPlayerFinished[i] = true;
+                playerScores[i] += currentScorePrize;
+                enemyStatusImage[i - 1].sprite = finishedStatusImage;
+                currentScorePrize--;
+            }
+        }
+
+        currentEnemySuccessChance += 0.005f * difficultLevel;
+    }
+
+    public void EndMiniGame()
+    {
+        scoreManager.UpdatePlayerScore(playerScores[0], playerScores[1], playerScores[2], playerScores[3]);
     }
 }

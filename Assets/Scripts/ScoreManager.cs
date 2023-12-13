@@ -7,18 +7,17 @@ public class ScoreManager : MonoBehaviour
         return PlayerPrefs.GetInt("PlayerScore" + index, 0);
     }
 
-    public void UpdatePlayerScore(int index, int additionalScore)
+    public void UpdatePlayerScore(int p0score, int p1score, int p2score, int p3score)
     {
-        int oldScore = GetPlayerScore(index);
-        PlayerPrefs.SetInt("PlayerScore" + index, oldScore + additionalScore);
+        int[] scores = new int[4] { p0score, p1score, p2score, p3score };
+        for (int i = 0; i < 4; i++)
+        {
+            int oldScore = GetPlayerScore(i);
+            PlayerPrefs.SetInt("PlayerScore" + i, oldScore + scores[i]);
+        }
     }
 
-    public void EndMiniGame()
-    {
-        //
-    }
-
-    public void RestePlayerScore()
+    public void ResetPlayerScore()
     {
         for (int i = 0; i < 4; i++)
         {
